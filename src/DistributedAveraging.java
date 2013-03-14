@@ -12,13 +12,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class DistributedAveraging {
     private static CPDataSet data;
-    private static int threads;
+    private int threads;
     private volatile static CPWeights weights;
     private volatile static int startCopyIndex;
 
-    public DistributedAveraging(CPDataSet data, int threadCount) {
+    public DistributedAveraging(CPDataSet data) {
         DistributedAveraging.data = data;
-        DistributedAveraging.threads = threadCount;
         weights = new CPWeights();
         startCopyIndex = 0;
     }
@@ -51,8 +50,10 @@ public class DistributedAveraging {
         }
     }
 
-    public CPWeights run(final double step, final double lambda, final int fullIterations) throws InterruptedException {
+    public CPWeights run(final double step, final double lambda, final int fullIterations, int threads)
+            throws InterruptedException {
         ExecutorService pool = Executors.newFixedThreadPool(threads);
+        this.threads = threads;
 
         //divy up data
         final int dataSize = data.getSize()/threads;

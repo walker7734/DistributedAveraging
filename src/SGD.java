@@ -103,7 +103,7 @@ public class SGD {
         dataIndex++;
 
         //perform delayed regularization
-        performDelayedRegularization(dataPoint.tokens);
+        //performDelayedRegularization(dataPoint.tokens);
 
         //calculate the probability
         double innerProduct = computeWeightFeatureProduct(weights, dataPoint);
@@ -132,7 +132,7 @@ public class SGD {
                 train();
             }
         }
-        preformFullRegularization(timestamp);
+        //preformFullRegularization(timestamp);
         return weights;
     }
 }
